@@ -1,45 +1,50 @@
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { StyleSheet, Text, View,Image, Platform } from 'react-native'
 import { COLORS , icons} from '../constants'
-import { BooksDetail, Home } from '../screens'
+import {  Home } from '../screens'
 
 const Tab = createBottomTabNavigator();
 
 const tabOptions = {
-    showlable : false,
-    style :{
-        height  :"10%",
-        backgroundColor : COLORS.black
+    showLabel: false,
+    style: {
+        height: Platform.OS === 'ios' ? "10%" : "8%",
+        backgroundColor: COLORS.black
     }
 }
 const Tabs = () => {
     return (
         <Tab.Navigator
-            tabOptions={tabOptions}
+        tabBarOptions={tabOptions}
             screenOptions={({ route }) => ({
                 tabBarIcon : ({focused}) =>{
                     const tintColor = focused ?  COLORS.white : COLORS.gray
-
                     switch (route.name) {
                         case "Home":
-                            <Image
+                            return(
+                                <Image
                                 source={icons.dashboard_icon}
-                                resizeMethod="contain"
+                                resizeMode="contain"
                                 style={{
                                     tintColor : tintColor,
-                                    width :25
+                                    width :20,
+                                    height: 20
                                 }}
                             />
+                            )
                         case "Search":
-                            <Image
+                            return(
+                                <Image
                                 source={icons.search_icon}
-                                resizeMethod="contain"
+                                resizeMode="contain"
                                 style={{
                                     tintColor : tintColor,
-                                    width :25
+                                    width :20,
+                                    height: 20
                                 }}
                             />
+                            )
                     }
                 }
             })}
